@@ -1,0 +1,22 @@
+pkgname=lb2d
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="LXD network bridges to docker registration tool"
+arch=('i686' 'x86_64' 'aarch64')
+url="https://github.com/sifyfy/lb2d"
+license=('Apache-2.0' 'MIT')
+depends=('systemd')
+makedepends=('rustup')
+source=("$pkgname-$pkgver::git+file://$(pwd)/../../.git")
+sha256sums=('SKIP')
+
+build() {
+    cd "$pkgname-$pkgver"
+    cargo build --release
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    cp ../../../target/release/lb2d $pkgdir/usr/local/bin/lb2d
+    cp ../../../systemd-unit/lb2d.service $pkgdir/etc/systemd/system/lb2d.service
+}

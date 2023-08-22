@@ -1,0 +1,28 @@
+[tasks.packaging-deb]
+script = '''
+mkdir -p packaging/deb/usr/bin packaging/deb/etc/systemd/system
+cp target/release/lb2d packaging/deb/usr/bin/lb2d
+cp systemd-unit/lb2d.service packaging/deb/etc/systemd/system/lb2d.service
+fakeroot dpkg-deb --build packaging/deb
+'''
+dependencies = ["build-release"]
+
+[tasks.install-by-pkgbuild]
+script = '''
+cd packaging/pacman
+makepkg
+pacman -U
+'''
+
+[tasks.act]
+script = '''
+act --artifact-server-path ./output
+'''
+
+[tasks.clean]
+extend = "clean"
+script = '''
+rm -rf target
+rm -rf output/*
+rm -rf packaging/pacman/{pkg,src} packaging/pacman
+'''

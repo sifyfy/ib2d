@@ -1,0 +1,5 @@
+/output
+/packaging/pacman/pkg
+/packaging/pacman/src
+/packaging/pacman/lb2d-*
+/target
