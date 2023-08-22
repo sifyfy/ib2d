@@ -10,8 +10,10 @@ dependencies = ["build-release"]
 [tasks.install-by-pkgbuild]
 script = '''
 cd packaging/pacman
-makepkg
-pacman -U
+echo "===== makepkg ====="
+makepkg -sf
+echo "===== Install lb2d package ====="
+sudo pacman -U lb2d-*-*-x86_64.pkg.tar.xz
 '''
 
 [tasks.act]
@@ -20,9 +22,10 @@ act --artifact-server-path ./output
 '''
 
 [tasks.clean]
-extend = "clean"
+clear = true
 script = '''
 rm -rf target
 rm -rf output/*
-rm -rf packaging/pacman/{pkg,src} packaging/pacman
+rm -rf packaging/pacman/{pkg,src}
+rm -rf packaging/pacman/lb2d-*
 '''

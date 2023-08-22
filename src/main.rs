@@ -1,3 +1,4 @@
+use anyhow::anyhow;
 use std::process::Command;
 
 fn main() -> anyhow::Result<()> {
@@ -43,17 +44,29 @@ fn get_lxd_network_bridges() -> anyhow::Result<LxdNetworks> {
 }
 
 fn register_to_iptables_docker_user_chain(lxd_bridges: &LxdNetworks) -> anyhow::Result<()> {
+    let ipt = iptables::new(false).map_err(|e| anyhow!("Failed to prepare iptables: {e}"))?;
     for lxd_bridge in lxd_bridges {
-        let output = Command::new("iptables")
-            .args(&["-I", "DOCKER-USER", "-i", &lxd_bridge.name, "-j", "ACCEPT"])
-            .output()?;
+        let lxd_bridge_name = &lxd_bridge.name;
+        let rules = [
+            ("egress", format!("-i {} -j ACCEPT", lxd_bridge_name)),
+            (
+                "ingress",
+                format!(
+                    "-o {} -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT",
+                    lxd_bridge_name
+                ),
+            ),
+        ];
 
-        if !output.status.success() {
-            anyhow::bail!(
-                "Failed to register LXD bridge {} to iptables DOCKER-USER chain: {}",
-                lxd_bridge.name,
-                String::from_utf8_lossy(&output.stderr)
-            );
+        for (kind, rule) in &rules {
+            if !ipt.exists("filter", "DOCKER-USER", &rule).map_err(|e| {
+                anyhow!(
+                    "Failed to check iptables whether {lxd_bridge_name} {kind} rule exists: {e}"
+                )
+            })? {
+                ipt.insert("filter", "DOCKER-USER", &rule, 1)
+                    .map_err(|e| anyhow!("Failed to add {kind} rule to iptables: {e}"))?;
+            }
         }
     }
 

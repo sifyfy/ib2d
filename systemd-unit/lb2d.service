@@ -5,7 +5,7 @@ Wants=docker.service snap.lxd.daemon.unix.socket
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/lb2d
+ExecStart=lb2d
 RemainAfterExit=true
 Environment=RUST_LOG=info
 
