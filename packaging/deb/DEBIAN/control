@@ -1,7 +1,7 @@
 Package: lb2d
 Maintainer: Siphilia <sifyfy@sifyfy.dev>
 Architecture: amd64
-Version: 0.0.0-1
+Version: 0.1.0-1
 Depends: systemd
 Description: "lb2d" means "LXD network bridges to docker".
  This tool register LXD network bridges to docker's iptables chain `DOCKER-USER`.
