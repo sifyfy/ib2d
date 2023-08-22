@@ -6,6 +6,7 @@ authors = ["Siphilia <sifyfy@sifyfy.dev>"]
 description = "LXD network bridges to docker registration tool"
 homepage = "https://github.com/sifyfy/lb2d"
 readme = "README.md"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 anyhow = { version = "1", features = ["backtrace"] }
