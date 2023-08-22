@@ -4,4 +4,4 @@
 
 This tool register LXD(snap) network bridges to docker's iptables chain `DOCKER-USER`.
 
-See: <https://linuxcontainers.org/lxd/docs/master/howto/network_bridge_firewalld/>
+See: <https://documentation.ubuntu.com/lxd/en/latest/howto/network_bridge_firewalld/>
