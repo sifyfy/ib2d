@@ -1,0 +1,13 @@
+[Unit]
+Description=This tool register incus network bridges to docker's iptables chain DOCKER-USER.
+After=docker.service incus.service
+Wants=docker.service incus.service
+
+[Service]
+Type=oneshot
+ExecStart=ib2d
+RemainAfterExit=true
+Environment=RUST_LOG=info
+
+[Install]
+WantedBy=multi-user.target

@@ -26,5 +26,5 @@ jobs:
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
-                name: lb2d.deb
+                name: ib2d.deb
                 path: packaging/deb.deb

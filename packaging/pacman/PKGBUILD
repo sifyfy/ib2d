@@ -1,11 +1,11 @@
-pkgname=lb2d
+pkgname=ib2d
 pkgver=0.1.0
 pkgrel=1
-pkgdesc="LXD network bridges to docker registration tool"
+pkgdesc="incus network bridges to docker registration tool"
 arch=('i686' 'x86_64' 'aarch64')
-url="https://github.com/sifyfy/lb2d"
+url="https://github.com/sifyfy/ib2d"
 license=('Apache-2.0' 'MIT')
-depends=('systemd')
+depends=('systemd' 'incus')
 makedepends=('rustup')
 install="${pkgname}.install"
 source=("$pkgname-$pkgver::git+file://$(pwd)/../../.git")
@@ -20,8 +20,8 @@ package() {
     cd "$pkgname-$pkgver"
 
     mkdir -p "$pkgdir/usr/local/bin"
-    cp ./target/release/lb2d $pkgdir/usr/local/bin/lb2d
+    cp ./target/release/ib2d $pkgdir/usr/local/bin/ib2d
 
     mkdir -p "$pkgdir/etc/systemd/system"
-    cp ./systemd-unit/lb2d.service $pkgdir/etc/systemd/system/lb2d.service
+    cp ./systemd-unit/ib2d.service $pkgdir/etc/systemd/system/ib2d.service
 }

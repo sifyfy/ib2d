@@ -1,0 +1,12 @@
+post_install() {
+    systemctl daemon-reload
+    systemctl enable ib2d.service
+    systemctl start ib2d.service
+}
+
+post_upgrade() {
+    systemctl daemon-reload
+    if [[ "$(systemctl is-enabled ib2d.service)" = "enabled" ]]; then
+        systemctl restart ib2d.service
+    fi
+}

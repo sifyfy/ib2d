@@ -1,8 +1,8 @@
 [tasks.packaging-deb]
 script = '''
 mkdir -p packaging/deb/usr/bin packaging/deb/etc/systemd/system
-cp target/release/lb2d packaging/deb/usr/bin/lb2d
-cp systemd-unit/lb2d.service packaging/deb/etc/systemd/system/lb2d.service
+cp target/release/ib2d packaging/deb/usr/bin/ib2d
+cp systemd-unit/ib2d.service packaging/deb/etc/systemd/system/ib2d.service
 fakeroot dpkg-deb --build packaging/deb
 '''
 dependencies = ["build-release"]
@@ -12,8 +12,8 @@ script = '''
 cd packaging/pacman
 echo "===== makepkg ====="
 makepkg -sf
-echo "===== Install lb2d package ====="
-sudo pacman -U lb2d-*-*-x86_64.pkg.tar.xz
+echo "===== Install ib2d package ====="
+sudo pacman -U ib2d-*-*-x86_64.pkg.tar.xz
 '''
 
 [tasks.act]
@@ -27,5 +27,5 @@ script = '''
 rm -rf target
 rm -rf output/*
 rm -rf packaging/pacman/{pkg,src}
-rm -rf packaging/pacman/lb2d-*
+rm -rf packaging/pacman/ib2d-*
 '''

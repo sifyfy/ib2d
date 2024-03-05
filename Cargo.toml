@@ -1,10 +1,10 @@
 [package]
-name = "lb2d"
+name = "ib2d"
 version = "0.1.0"
 edition = "2021"
-authors = ["Siphilia <sifyfy@sifyfy.dev>"]
-description = "LXD network bridges to docker registration tool"
-homepage = "https://github.com/sifyfy/lb2d"
+authors = ["Sifi Takashina <sifyfy@sifyfy.dev>"]
+description = "incus network bridges to docker registration tool"
+homepage = "https://github.com/sifyfy/ib2d"
 readme = "README.md"
 license = "MIT OR Apache-2.0"
 
